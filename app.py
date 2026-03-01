@@ -749,12 +749,12 @@ def performance_page():
 
     st.markdown("<div class='section-title'>Clustering Quality &amp; Design Decision</div>", unsafe_allow_html=True)
     q1, q2 = st.columns(2)
-    # FIX 5: Equal height clustering quality cards
+    # FIX 5: Equal height clustering quality cards — fixed height so both match
     with q1:
         st.markdown("""
         <div style='background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
                     padding: 2rem; box-shadow: var(--shadow); text-align: center;
-                    min-height: 180px; box-sizing: border-box; display: flex; flex-direction: column;
+                    height: 200px; box-sizing: border-box; display: flex; flex-direction: column;
                     align-items: center; justify-content: center; gap: 0.5rem;'>
             <div class='card-label'>Silhouette Score</div>
             <div class='card-value'>0.2112</div>
@@ -768,7 +768,7 @@ def performance_page():
         st.markdown("""
         <div style='background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
                     padding: 2rem; box-shadow: var(--shadow); text-align: center;
-                    min-height: 180px; box-sizing: border-box; display: flex; flex-direction: column;
+                    height: 200px; box-sizing: border-box; display: flex; flex-direction: column;
                     align-items: center; justify-content: center; gap: 0.5rem;'>
             <div class='card-label'>Davies-Bouldin Index</div>
             <div class='card-value'>1.7311</div>
@@ -982,15 +982,13 @@ def predict_page():
             seg_color = seg_colors.get(learner_seg, "#7a6a55")
             seg_icon  = seg_icons_svg.get(learner_seg, "")
 
-            # FIX 6: Equal height executive summary cards
+            # Executive Summary — all 3 cards fixed to same height
             st.markdown("<div class='section-title' style='margin-top:0;'>Executive Summary</div>", unsafe_allow_html=True)
             e1, e2, e3 = st.columns(3)
+            card_style = "background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem 1rem; box-shadow: var(--shadow); text-align: center; height: 145px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem;"
             with e1:
                 st.markdown(f"""
-                <div style='background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--accent);
-                            border-radius: var(--radius); padding: 1.4rem 1rem; box-shadow: var(--shadow); text-align: center;
-                            min-height: 130px; box-sizing: border-box; display: flex; flex-direction: column;
-                            align-items: center; justify-content: center; gap: 0.2rem;'>
+                <div style='{card_style} border-top: 3px solid var(--accent);'>
                     <div class='card-label'>Predicted Score</div>
                     <div style='font-family:Playfair Display,serif; font-size:2.3rem; font-weight:700; color:var(--accent);'>{predicted_score:.1f}%</div>
                     <div style='font-size:0.72rem; color:var(--text-dim);'>Threshold: 69.0</div>
@@ -998,10 +996,7 @@ def predict_page():
                 """, unsafe_allow_html=True)
             with e2:
                 st.markdown(f"""
-                <div style='background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid {result_color};
-                            border-radius: var(--radius); padding: 1.4rem 1rem; box-shadow: var(--shadow); text-align: center;
-                            min-height: 130px; box-sizing: border-box; display: flex; flex-direction: column;
-                            align-items: center; justify-content: center; gap: 0.2rem;'>
+                <div style='{card_style} border-top: 3px solid {result_color};'>
                     <div class='card-label'>Outcome</div>
                     <div style='font-family:Playfair Display,serif; font-size:2.3rem; font-weight:700; color:{result_color};'>{predicted_result.upper()}</div>
                     <div style='font-size:0.72rem; color:var(--text-dim);'>Confidence: {conf_val:.1f}%</div>
@@ -1009,10 +1004,7 @@ def predict_page():
                 """, unsafe_allow_html=True)
             with e3:
                 st.markdown(f"""
-                <div style='background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid {seg_color};
-                            border-radius: var(--radius); padding: 1.4rem 1rem; box-shadow: var(--shadow); text-align: center;
-                            min-height: 130px; box-sizing: border-box; display: flex; flex-direction: column;
-                            align-items: center; justify-content: center; gap: 0.2rem;'>
+                <div style='{card_style} border-top: 3px solid {seg_color};'>
                     <div class='card-label'>Learner Segment</div>
                     <div style='margin:0.2rem 0; display:flex; justify-content:center;'>{seg_icon}</div>
                     <div style='font-family:Playfair Display,serif; font-size:1.1rem; font-weight:700; color:{seg_color};'>{learner_seg}</div>
@@ -1038,13 +1030,6 @@ def predict_page():
                     insidetextanchor="middle",
                     textfont=dict(color="white", size=13, family="DM Sans", weight=700)
                 ))
-                fig_bar.add_hline(
-                    y=69, line_dash="dash", line_color="#c05840", line_width=1.5,
-                    annotation_text="Pass threshold (69.0)",
-                    annotation_font_color="#c05840",
-                    annotation_font_size=10,
-                    annotation_position="top right"
-                )
                 fig_bar.update_layout(
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
