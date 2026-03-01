@@ -193,6 +193,7 @@ label[data-testid="stWidgetLabel"] p {
     padding: 1.2rem !important;
 }
 
+/* FIX 2: Equal height for capability cards */
 .intel-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -201,6 +202,9 @@ label[data-testid="stWidgetLabel"] p {
     box-shadow: var(--shadow);
     transition: all 0.2s ease;
     height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 .intel-card:hover {
     box-shadow: 0 8px 32px rgba(100,70,30,0.12);
@@ -254,7 +258,7 @@ label[data-testid="stWidgetLabel"] p {
     background: linear-gradient(135deg, #ede0cc 0%, #f5efe4 60%, #e8ddc8 100%);
     border: 1px solid var(--border);
     border-radius: 18px;
-    padding: 3.5rem;
+    padding: 2.8rem 3.5rem 3rem 3.5rem;
     margin-bottom: 3rem;
     position: relative;
     overflow: hidden;
@@ -332,6 +336,38 @@ input[type="number"] {
     border-radius: 8px !important;
     color: var(--text) !important;
 }
+
+/* Equal height metric cards for performance page */
+.metric-card-equal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.2rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    height: 160px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Equal height executive summary cards */
+.exec-card-equal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    height: 130px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -408,15 +444,19 @@ with st.sidebar:
 # HOME PAGE
 # ============================================================
 def home_page():
+    # FIX 1: Increased text size and reduced top padding to move content upward
     st.markdown("""
     <div class='hero-strip'>
-        <div style='font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em;
-                    text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem;'>
+        <div style='font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em;
+                    text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem;'>
             Gen AI Course &middot; Milestone 1 &middot; February 2026
         </div>
-        <div class='page-title'>Intelligent Learning Analytics<br>&amp; Agentic AI Study Coach</div>
-        <div style='font-size: 0.98rem; color: var(--text-dim); max-width: 650px;
-                    line-height: 1.7; margin-top: 0.6rem;'>
+        <div style='font-family: Playfair Display, serif; font-size: 2.6rem; font-weight: 700;
+                    color: var(--text); margin-bottom: 0; line-height: 1.15;'>
+            Intelligent Learning Analytics<br>&amp; Agentic AI Study Coach
+        </div>
+        <div style='font-size: 1.05rem; color: var(--text-dim); max-width: 650px;
+                    line-height: 1.7; margin-top: 0.7rem;'>
             A complete ML pipeline for student performance analysis &#8212; predicting exam scores,
             classifying Pass/Fail outcomes, and segmenting students into meaningful learner
             categories using 30,640 student records.
@@ -446,14 +486,17 @@ def home_page():
         (icon("alert_triangle", "#b07d4e"), "Early Intervention",
          "Flags at-risk students before exams using behavioural and academic features, enabling targeted teacher action."),
     ]
+    # FIX 2: Equal height capability cards using a wrapping div with fixed height
     for col, (ic_svg, title, body) in zip([c1, c2, c3, c4], caps):
         with col:
             st.markdown(f"""
-            <div class='intel-card'>
+            <div style='background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+                        padding: 2rem 1.8rem; box-shadow: var(--shadow); transition: all 0.2s ease;
+                        min-height: 220px; box-sizing: border-box; display: flex; flex-direction: column;'>
                 <div style='margin-bottom:0.6rem;'>{ic_svg}</div>
                 <div style='font-family: Playfair Display, serif; font-size: 1rem; font-weight: 600;
                             color: var(--text); margin-bottom: 0.5rem;'>{title}</div>
-                <div class='card-body'>{body}</div>
+                <div style='font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; margin-top: 0.5rem; flex: 1;'>{body}</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -469,7 +512,10 @@ def home_page():
     for col, (lbl, val) in zip([m1, m2, m3, m4, m5], metrics):
         with col:
             st.markdown(f"""
-            <div class='intel-card' style='text-align:center; padding: 1.6rem 1rem;'>
+            <div style='background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+                        padding: 1.6rem 1rem; box-shadow: var(--shadow); text-align: center;
+                        min-height: 110px; box-sizing: border-box; display: flex; flex-direction: column;
+                        align-items: center; justify-content: center;'>
                 <div class='card-label'>{lbl}</div>
                 <div class='card-value' style='font-size: 2rem;'>{val}</div>
             </div>
@@ -561,14 +607,18 @@ def performance_page():
         ("RMSE",                 "3.78 marks",        "Root mean squared error &#8212; tight predictions"),
         ("CV R&#178; (5-fold)",  "0.9394 &#177; 0.0021", "Stable across all folds &#8212; no overfitting"),
     ]
+    # FIX 3: Equal height metric cards for Linear Regression
     for col, (lbl, val, sub) in zip([lr1, lr2, lr3, lr4], reg_metrics):
         with col:
             st.markdown(f"""
-            <div class='intel-card' style='text-align:center;'>
+            <div style='background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+                        padding: 1.6rem 1.2rem; box-shadow: var(--shadow); text-align: center;
+                        min-height: 165px; box-sizing: border-box; display: flex; flex-direction: column;
+                        align-items: center; justify-content: center; gap: 0.3rem;'>
                 <div class='card-label'>{lbl}</div>
                 <div style='font-family: Playfair Display, serif; font-size: 1.65rem; font-weight: 700;
-                            color: var(--text); line-height: 1.1; margin: 0.4rem 0;'>{val}</div>
-                <div class='card-body' style='font-size: 0.78rem;'>{sub}</div>
+                            color: var(--text); line-height: 1.1;'>{val}</div>
+                <div style='font-size: 0.78rem; color: var(--text-dim); line-height: 1.4;'>{sub}</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -580,14 +630,18 @@ def performance_page():
         ("CV Accuracy (5-fold)", "92.47% &#177; 0.55%", "Highly stable &#8212; consistent across folds"),
         ("Fail Recall",          "0.92",               "Catches 92% of all at-risk students"),
     ]
+    # FIX 4: Equal height metric cards for Logistic Regression
     for col, (lbl, val, sub) in zip([cl1, cl2, cl3, cl4], clf_metrics):
         with col:
             st.markdown(f"""
-            <div class='intel-card' style='text-align:center;'>
+            <div style='background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+                        padding: 1.6rem 1.2rem; box-shadow: var(--shadow); text-align: center;
+                        min-height: 165px; box-sizing: border-box; display: flex; flex-direction: column;
+                        align-items: center; justify-content: center; gap: 0.3rem;'>
                 <div class='card-label'>{lbl}</div>
                 <div style='font-family: Playfair Display, serif; font-size: 1.65rem; font-weight: 700;
-                            color: var(--text); line-height: 1.1; margin: 0.4rem 0;'>{val}</div>
-                <div class='card-body' style='font-size: 0.78rem;'>{sub}</div>
+                            color: var(--text); line-height: 1.1;'>{val}</div>
+                <div style='font-size: 0.78rem; color: var(--text-dim); line-height: 1.4;'>{sub}</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -682,33 +736,46 @@ def performance_page():
         ])
         with col:
             st.markdown(f"""
-            <div class='intel-card' style='border-top: 4px solid {color};'>
+            <div style='background: var(--bg-card); border: 1px solid var(--border); border-top: 4px solid {color};
+                        border-radius: var(--radius); padding: 2rem 1.8rem; box-shadow: var(--shadow);
+                        min-height: 280px; box-sizing: border-box; display: flex; flex-direction: column;'>
                 <div style='margin-bottom: 0.5rem;'>{ic_svg}</div>
                 <div style='font-family: Playfair Display, serif; font-size: 1.1rem; font-weight: 700;
                             color: {color}; margin-bottom: 0.2rem;'>{name}</div>
                 <div style='font-size: 0.75rem; color: var(--text-dim); margin-bottom: 1.2rem;'>{n}</div>
-                {rows}
+                <div style='flex: 1;'>{rows}</div>
             </div>
             """, unsafe_allow_html=True)
 
     st.markdown("<div class='section-title'>Clustering Quality &amp; Design Decision</div>", unsafe_allow_html=True)
     q1, q2 = st.columns(2)
+    # FIX 5: Equal height clustering quality cards
     with q1:
         st.markdown("""
-        <div class='intel-card' style='text-align:center;'>
+        <div style='background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+                    padding: 2rem; box-shadow: var(--shadow); text-align: center;
+                    min-height: 180px; box-sizing: border-box; display: flex; flex-direction: column;
+                    align-items: center; justify-content: center; gap: 0.5rem;'>
             <div class='card-label'>Silhouette Score</div>
             <div class='card-value'>0.2112</div>
-            <div class='card-body' style='margin-top:0.6rem;'>Moderate separation &#8212; expected for behavioural
-            data. Students naturally overlap between categories. This is a dataset characteristic, not a modelling error.</div>
+            <div style='font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; margin-top: 0.6rem;'>
+                Moderate separation &#8212; expected for behavioural data. Students naturally overlap between
+                categories. This is a dataset characteristic, not a modelling error.
+            </div>
         </div>
         """, unsafe_allow_html=True)
     with q2:
         st.markdown("""
-        <div class='intel-card' style='text-align:center;'>
+        <div style='background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+                    padding: 2rem; box-shadow: var(--shadow); text-align: center;
+                    min-height: 180px; box-sizing: border-box; display: flex; flex-direction: column;
+                    align-items: center; justify-content: center; gap: 0.5rem;'>
             <div class='card-label'>Davies-Bouldin Index</div>
             <div class='card-value'>1.7311</div>
-            <div class='card-body' style='margin-top:0.6rem;'>k=3 selected over best_k=5 (silhouette 0.2211 vs 0.2112
-            &#8212; negligible). k=3 maps directly to At-Risk / Average / High-Performer for interpretability.</div>
+            <div style='font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; margin-top: 0.6rem;'>
+                k=3 selected over best_k=5 (silhouette 0.2211 vs 0.2112 &#8212; negligible). k=3 maps
+                directly to At-Risk / Average / High-Performer for interpretability.
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -785,11 +852,6 @@ def predict_page():
 
         with st.container(border=True):
             st.markdown(f"<div class='input-group-header'>{icon('clock','#b07d4e')} &nbsp; Weekly Habits</div>", unsafe_allow_html=True)
-            study_map = {
-                "Low &#8212; less than 5 hrs (2.5 hrs avg)":    2.5,
-                "Moderate &#8212; 5 to 10 hrs (7.5 hrs avg)":   7.5,
-                "High &#8212; more than 10 hrs (12.0 hrs avg)":  12.0,
-            }
             study_label = st.selectbox(
                 "Weekly Study Time",
                 ["Low — less than 5 hrs (2.5 hrs avg)",
@@ -869,9 +931,6 @@ def predict_page():
             </div>
             """, unsafe_allow_html=True)
         else:
-            # Feature order: MathScore, ReadingScore, WklyStudyHours, ParentEduc,
-            # TestPrep_none, LunchType_standard, PracticeSport, NrSiblings,
-            # Gender_male, IsFirstChild_yes, TransportMeans_school_bus
             input_data = np.array([[
                 math_score, reading_score, study_hours, parent_educ,
                 test_prep,  lunch_type,    practice_sport, nr_siblings,
@@ -884,12 +943,10 @@ def predict_page():
             predicted_score  = float(np.clip(linear_model.predict(input_reg)[0], 0, 100))
             predicted_result = logistic_model.predict(input_clf)[0]
             proba            = logistic_model.predict_proba(input_clf)[0]
-            # classes_ = ['Fail', 'Pass']
             fail_prob = proba[0] * 100
             pass_prob = proba[1] * 100
             conf_val  = pass_prob if predicted_result == "Pass" else fail_prob
 
-            # Clustering: ExamScore, WklyStudyHours, ParentEduc, LunchType_standard, TestPrep_none, PracticeSport
             cluster_input = np.array([[
                 predicted_score, study_hours, parent_educ,
                 lunch_type, test_prep, practice_sport
@@ -904,7 +961,6 @@ def predict_page():
             else:
                 learner_seg = "At-Risk" if predicted_score < 63.6 else ("Average" if predicted_score < 72.5 else "High-Performer")
 
-            # Score-based alignment overrides
             if predicted_score < 60:
                 learner_seg = "At-Risk"
             elif predicted_score > 82:
@@ -926,30 +982,39 @@ def predict_page():
             seg_color = seg_colors.get(learner_seg, "#7a6a55")
             seg_icon  = seg_icons_svg.get(learner_seg, "")
 
-            # Executive Summary
+            # FIX 6: Equal height executive summary cards
             st.markdown("<div class='section-title' style='margin-top:0;'>Executive Summary</div>", unsafe_allow_html=True)
             e1, e2, e3 = st.columns(3)
             with e1:
                 st.markdown(f"""
-                <div class='intel-card' style='text-align:center; border-top:3px solid var(--accent); padding:1.4rem 1rem;'>
+                <div style='background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--accent);
+                            border-radius: var(--radius); padding: 1.4rem 1rem; box-shadow: var(--shadow); text-align: center;
+                            min-height: 130px; box-sizing: border-box; display: flex; flex-direction: column;
+                            align-items: center; justify-content: center; gap: 0.2rem;'>
                     <div class='card-label'>Predicted Score</div>
                     <div style='font-family:Playfair Display,serif; font-size:2.3rem; font-weight:700; color:var(--accent);'>{predicted_score:.1f}%</div>
-                    <div style='font-size:0.72rem; color:var(--text-dim); margin-top:0.2rem;'>Threshold: 69.0</div>
+                    <div style='font-size:0.72rem; color:var(--text-dim);'>Threshold: 69.0</div>
                 </div>
                 """, unsafe_allow_html=True)
             with e2:
                 st.markdown(f"""
-                <div class='intel-card' style='text-align:center; border-top:3px solid {result_color}; padding:1.4rem 1rem;'>
+                <div style='background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid {result_color};
+                            border-radius: var(--radius); padding: 1.4rem 1rem; box-shadow: var(--shadow); text-align: center;
+                            min-height: 130px; box-sizing: border-box; display: flex; flex-direction: column;
+                            align-items: center; justify-content: center; gap: 0.2rem;'>
                     <div class='card-label'>Outcome</div>
                     <div style='font-family:Playfair Display,serif; font-size:2.3rem; font-weight:700; color:{result_color};'>{predicted_result.upper()}</div>
-                    <div style='font-size:0.72rem; color:var(--text-dim); margin-top:0.2rem;'>Confidence: {conf_val:.1f}%</div>
+                    <div style='font-size:0.72rem; color:var(--text-dim);'>Confidence: {conf_val:.1f}%</div>
                 </div>
                 """, unsafe_allow_html=True)
             with e3:
                 st.markdown(f"""
-                <div class='intel-card' style='text-align:center; border-top:3px solid {seg_color}; padding:1.4rem 1rem;'>
+                <div style='background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid {seg_color};
+                            border-radius: var(--radius); padding: 1.4rem 1rem; box-shadow: var(--shadow); text-align: center;
+                            min-height: 130px; box-sizing: border-box; display: flex; flex-direction: column;
+                            align-items: center; justify-content: center; gap: 0.2rem;'>
                     <div class='card-label'>Learner Segment</div>
-                    <div style='margin:0.3rem 0; display:flex; justify-content:center;'>{seg_icon}</div>
+                    <div style='margin:0.2rem 0; display:flex; justify-content:center;'>{seg_icon}</div>
                     <div style='font-family:Playfair Display,serif; font-size:1.1rem; font-weight:700; color:{seg_color};'>{learner_seg}</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -959,6 +1024,7 @@ def predict_page():
             chart_col, gauge_col = st.columns([1.2, 1])
 
             with chart_col:
+                # FIX 7: Fixed overlapping text — moved labels inside bars and increased chart height
                 fig_bar = go.Figure(go.Bar(
                     x=["Math", "Reading", "Predicted Exam"],
                     y=[math_score, reading_score, predicted_score],
@@ -968,21 +1034,23 @@ def predict_page():
                     ),
                     width=0.45,
                     text=[f"{math_score}", f"{reading_score}", f"{predicted_score:.1f}"],
-                    textposition="outside",
-                    textfont=dict(color="#7a6a55", size=11, family="DM Sans")
+                    textposition="inside",
+                    insidetextanchor="middle",
+                    textfont=dict(color="white", size=13, family="DM Sans", weight=700)
                 ))
                 fig_bar.add_hline(
                     y=69, line_dash="dash", line_color="#c05840", line_width=1.5,
                     annotation_text="Pass threshold (69.0)",
                     annotation_font_color="#c05840",
-                    annotation_font_size=10
+                    annotation_font_size=10,
+                    annotation_position="top right"
                 )
                 fig_bar.update_layout(
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
-                    margin=dict(t=10, b=5, l=5, r=5),
-                    height=215,
-                    yaxis=dict(range=[0, 118], gridcolor="rgba(100,80,50,0.07)",
+                    margin=dict(t=20, b=5, l=5, r=5),
+                    height=230,
+                    yaxis=dict(range=[0, 110], gridcolor="rgba(100,80,50,0.07)",
                                tickfont=dict(color="#7a6a55", size=10)),
                     xaxis=dict(tickfont=dict(color="#7a6a55", size=11)),
                     showlegend=False
@@ -1014,7 +1082,7 @@ def predict_page():
                 fig_gauge.update_layout(
                     paper_bgcolor="rgba(0,0,0,0)",
                     margin=dict(t=30, b=5, l=15, r=15),
-                    height=215,
+                    height=230,
                     font=dict(family="DM Sans")
                 )
                 st.plotly_chart(fig_gauge, use_container_width=True)
