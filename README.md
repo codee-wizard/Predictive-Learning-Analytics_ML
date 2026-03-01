@@ -16,7 +16,7 @@ This project implements a machine learning pipeline for student learning analyti
 
 This is **Milestone 1** of a two-phase project. Milestone 2 will extend the system into an agentic AI study coach powered by LangGraph and an open-source LLM.
 
-**Live Demo:** [student-analytics.streamlit.app](https://your-app-link.streamlit.app)
+**Live Demo:** [student-analytics.streamlit.app](https://predictive-learning-analytics-ml.streamlit.app/)
 
 ---
 
