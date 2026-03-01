@@ -821,8 +821,6 @@ def predict_page():
     st.markdown("<div class='page-subtitle'>Enter the student's academic and behavioural profile to generate ML-powered predictions.</div>", unsafe_allow_html=True)
 
     col_input, col_result = st.columns([1, 1.2], gap="large")
-
-    # ── INPUT PANEL ──
     with col_input:
         st.markdown("""
         <div style='font-family: Playfair Display, serif; font-size: 1.05rem; font-weight: 600;
@@ -896,8 +894,6 @@ def predict_page():
         st.markdown("<div style='margin-top:1.2rem;'></div>", unsafe_allow_html=True)
         if st.button("UPDATE INSIGHTS", type="primary", use_container_width=True):
             st.session_state.prediction_run = True
-
-    # ── RESULTS PANEL ──
     with col_result:
         if not st.session_state.prediction_run:
             st.markdown("""
@@ -1002,13 +998,10 @@ def predict_page():
                     <div style='font-family:Playfair Display,serif; font-size:1.1rem; font-weight:700; color:{seg_color};'>{learner_seg}</div>
                 </div>
                 """, unsafe_allow_html=True)
-
-            # Performance Analytics
             st.markdown("<div class='section-title'>Performance Analytics</div>", unsafe_allow_html=True)
             chart_col, gauge_col = st.columns([1.2, 1])
 
             with chart_col:
-                # FIX 7: Fixed overlapping text — moved labels inside bars and increased chart height
                 fig_bar = go.Figure(go.Bar(
                     x=["Math", "Reading", "Predicted Exam"],
                     y=[math_score, reading_score, predicted_score],
@@ -1063,8 +1056,7 @@ def predict_page():
                     font=dict(family="DM Sans")
                 )
                 st.plotly_chart(fig_gauge, use_container_width=True)
-
-            # Strategic Recommendations
+                
             st.markdown("<div class='section-title'>Strategic Recommendations</div>", unsafe_allow_html=True)
             recs = []
 
