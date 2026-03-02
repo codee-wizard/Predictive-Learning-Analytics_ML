@@ -29,6 +29,26 @@ This is **Milestone 1** of a two-phase project. Milestone 2 will extend the syst
 | Apoorva Choudhary |
 
 ---
+## Tech Stack & Tools
+
+### **Machine Learning**
+* **Models:** Linear Regression, Logistic Regression, K-Means Clustering
+* **Library:** [Scikit-Learn](https://scikit-learn.org/)
+
+### **Data Processing & Analysis**
+* **Pandas:** Data manipulation and analysis.
+* **NumPy:** Numerical computing and array processing.
+
+### **Data Visualization**
+* **Static:** Matplotlib, Seaborn
+* **Interactive:** Plotly
+
+### **Deployment & UI**
+* **Frontend:** [Streamlit](https://streamlit.io/) (Python-based UI framework)
+* **Hosting:** Streamlit Community Cloud
+* **Version Control:** GitHub
+
+--
 
 ## Table of Contents
 
