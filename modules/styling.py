@@ -34,7 +34,8 @@ def apply_global_styles():
         font-size: 15px !important;
     }
 
-    #MainMenu, footer, header, [data-testid="stHeader"] { visibility: hidden; }
+    /* Hide chrome only — NOT stHeader: that region contains the sidebar collapse/expand control */
+    #MainMenu, footer { visibility: hidden; }
 
     [data-testid="stSidebar"] {
         background-color: var(--bg-deep) !important;
