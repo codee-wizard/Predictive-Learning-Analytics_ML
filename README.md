@@ -247,17 +247,71 @@ streamlit run app.py
 # Project Structure
 
 ```
-Predictive-Learning-Analytics_ML/
+predictive-learning-analytics
+├── __pycache__
+│   ├── app.cpython-313.pyc
+│   └── styles.cpython-313.pyc
+├── agent
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── chat_history.py
+│   ├── formatting.py
+│   ├── graph.py
+│   ├── guardrails.py
+│   ├── ml_pipeline.py
+│   ├── nodes.py
+│   ├── rag.py
+│   ├── session_context.py
+│   └── state.py
+├── app_errors.log
 ├── app.py
-├── requirements.txt
-├── models/
+├── chat_history.db
+├── Data
+│   ├── processed
+│   └── raw
+├── knowledge
+│   ├── academic_coaching.md
+│   ├── algebra_geometry_trig.md
+│   ├── math_foundations.md
+│   ├── performance_intervention.md
+│   ├── reading_comprehension.md
+│   ├── README.md
+│   ├── statistics_probability.md
+│   ├── study_skills.md
+│   └── writing_skills.md
+├── models
+│   ├── kmeans_model.pkl
 │   ├── linear_model.pkl
 │   ├── logistic_model.pkl
-│   ├── kmeans_model.pkl
-│   ├── scaler_reg.pkl
 │   ├── scaler_clf.pkl
-│   └── scaler_cluster.pkl
-└── README.md
+│   ├── scaler_cluster.pkl
+│   └── scaler_reg.pkl
+├── modules
+│   ├── __pycache__
+│   ├── components.py
+│   ├── home.py
+│   ├── icons.py
+│   ├── model_loader.py
+│   ├── performance.py
+│   ├── predict.py
+│   ├── sidebar.py
+│   └── styling.py
+├── notebooks
+│   ├── AgenticAI_Practice_Roughbook.ipynb.ipynb
+│   ├── Cleaned__Notebook.ipynb
+│   └── GenAi_Project_Predictive_learning.ipynb
+├── README.md
+├── Report
+│   └── GenAi_Final_Report_v2.pdf
+├── requirements.txt
+├── styles.py
+└── venv
+    ├── bin
+    ├── etc
+    ├── include
+    ├── lib
+    ├── pyvenv.cfg
+    └── share
 ```
 
 ---
